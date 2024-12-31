@@ -6,6 +6,16 @@ body{
 
 #calculator
 {
+    background-color: grey;
+}
+
+#numpad
+{
+    background-color: bisque;
+}
+
+#calculator
+{
     border: 5px black solid;
     border-radius: inherit;
     margin: 10px;
@@ -43,10 +53,26 @@ body{
 
 .btn
 {
+    text-align: center;
+    align-content: center;
+    background-color: lightgrey;
     width: 60px;
     height: 60px;
     border: 2px black solid;
     border-radius: 4px;
     margin: 8px;
     cursor: pointer;
+}
+
+.btn:hover{
+    background-color: grey;
+}
+
+.btn:active
+{
+    background: #e5e5e5;
+  -webkit-box-shadow: inset 0px 0px 1.5rem black;
+     -moz-box-shadow: inset 0px 0px 1.5rem black;
+          box-shadow: inset 0px 0px 1.5rem black;
+   outline: none;
 }
