@@ -1,11 +1,56 @@
+
+interface operation {
+  exe(a:number, b:number): number;
+}
+
+class addition implements operation {
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a + b;
+  }
+}
+class subtraction implements operation {
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a - b;
+  }
+  
+}
+class multiplication implements operation {
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a * b;
+  }
+  
+}
+class division implements operation {
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a / b;
+  }
+
+}
+
 class Calc {
+  
   constructor(
     private result: number = 0,
-    private lastResult: number = 0
+    private lastResult: number = 0,
+    private opElement: HTMLElement = document.getElementById('output')!,
+    private op: operation | null = null, 
   ) {}
 
   public updateOutput(): void {
-    document.getElementById('output')!.textContent = String(this.result)
+    this.opElement.textContent = String(this.result)
+  }
+  public clear(): void {
+    this.result = 0;
+    this.lastResult = 0;
+    this.opElement.textContent = "Empty..."
   }
   
 
@@ -19,11 +64,27 @@ class Calc {
   }
   public add(): void {
     this.setLastResult();
+    this.op = new addition();
+    this.updateOutput();
+  }
+  public sub(): void {
+    this.setLastResult();
+    this.op = new subtraction();
     this.updateOutput();
   }
   public equal(): void {
-    this.result += this.lastResult;
+    if(this.op) {
+      this.result = this.op.exe(this.result, this.lastResult);
+    }
     this.updateOutput();
+  }
+  public backspace(): void {
+    if(this.result < 10) {
+      this.result = 0;
+    } else {
+      this.result = Math.floor(this.result / 10);
+    }
+    this.updateOutput()
   }
 }
 
@@ -42,7 +103,7 @@ class Btn {
   }
 
   public static substract(): void {
-    // Logik hier
+    this.calc.sub();
   }
 
   public static multiply(): void {
@@ -54,7 +115,7 @@ class Btn {
   }
 
   public static backspace(): void {
-    // Logik hier
+    this.calc.backspace()
   }
 
   public static modulo(): void {
@@ -75,6 +136,10 @@ class Btn {
 
   public static equal(): void {
     this.calc.equal();
+  }
+
+  public static ce(): void {
+    this.calc.clear();
   }
 }
 

@@ -1,25 +1,46 @@
 "use strict";
-// document.addEventListener('DOMContentLoaded', function() 
-// {
-//     const btns = document.querySelectorAll('#numpad .btn'); 
-//     btns.forEach(btn => {
-//       // Fügen Sie hier Event-Listener für jeden Button hinzu
-//       btn.addEventListener('click', function() 
-//       {
-//         // Logik für den Button-Klick hier
-//         console.log(btn.textContent); // Zeigt den Textinhalt des geklickten Buttons an
-//       });
-//     });
-//   });
-function main() {
+class addition {
+    constructor() {
+    }
+    exe(a, b) {
+        return a + b;
+    }
+}
+class subtraction {
+    constructor() {
+    }
+    exe(a, b) {
+        return a - b;
+    }
+}
+class multiplication {
+    constructor() {
+    }
+    exe(a, b) {
+        return a * b;
+    }
+}
+class division {
+    constructor() {
+    }
+    exe(a, b) {
+        return a / b;
+    }
 }
 class Calc {
-    constructor(result = 0, lastResult = 0) {
+    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output'), op = null) {
         this.result = result;
         this.lastResult = lastResult;
+        this.opElement = opElement;
+        this.op = op;
     }
     updateOutput() {
-        document.getElementById('output').textContent = String(this.result);
+        this.opElement.textContent = String(this.result);
+    }
+    clear() {
+        this.result = 0;
+        this.lastResult = 0;
+        this.opElement.textContent = "Empty...";
     }
     setResult(numb) {
         this.result = this.result * 10 + numb;
@@ -31,10 +52,27 @@ class Calc {
     }
     add() {
         this.setLastResult();
+        this.op = new addition();
+        this.updateOutput();
+    }
+    sub() {
+        this.setLastResult();
+        this.op = new subtraction();
         this.updateOutput();
     }
     equal() {
-        this.result += this.lastResult;
+        if (this.op) {
+            this.result = this.op.exe(this.result, this.lastResult);
+        }
+        this.updateOutput();
+    }
+    backspace() {
+        if (this.result < 10) {
+            this.result = 0;
+        }
+        else {
+            this.result = Math.floor(this.result / 10);
+        }
         this.updateOutput();
     }
 }
@@ -46,7 +84,7 @@ class Btn {
         this.calc.add();
     }
     static substract() {
-        // Logik hier
+        this.calc.sub();
     }
     static multiply() {
         // Logik hier
@@ -55,7 +93,7 @@ class Btn {
         // Logik hier
     }
     static backspace() {
-        // Logik hier
+        this.calc.backspace();
     }
     static modulo() {
         // Logik hier
@@ -71,6 +109,9 @@ class Btn {
     }
     static equal() {
         this.calc.equal();
+    }
+    static ce() {
+        this.calc.clear();
     }
 }
 Btn.calc = new Calc;
