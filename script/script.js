@@ -1,9 +1,38 @@
 "use strict";
+class addition {
+    constructor() {
+    }
+    exe(a, b) {
+        return a + b;
+    }
+}
+class subtraction {
+    constructor() {
+    }
+    exe(a, b) {
+        return a - b;
+    }
+}
+class multiplication {
+    constructor() {
+    }
+    exe(a, b) {
+        return a * b;
+    }
+}
+class division {
+    constructor() {
+    }
+    exe(a, b) {
+        return a / b;
+    }
+}
 class Calc {
-    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output')) {
+    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output'), op = null) {
         this.result = result;
         this.lastResult = lastResult;
         this.opElement = opElement;
+        this.op = op;
     }
     updateOutput() {
         this.opElement.textContent = String(this.result);
@@ -23,10 +52,18 @@ class Calc {
     }
     add() {
         this.setLastResult();
+        this.op = new addition();
+        this.updateOutput();
+    }
+    sub() {
+        this.setLastResult();
+        this.op = new subtraction();
         this.updateOutput();
     }
     equal() {
-        this.result += this.lastResult;
+        if (this.op) {
+            this.result = this.op.exe(this.result, this.lastResult);
+        }
         this.updateOutput();
     }
     backspace() {
@@ -47,7 +84,7 @@ class Btn {
         this.calc.add();
     }
     static substract() {
-        // Logik hier
+        this.calc.sub();
     }
     static multiply() {
         // Logik hier

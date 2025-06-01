@@ -1,17 +1,36 @@
 interface operation {
-
+  exe(a:number, b:number): number;
 }
 
 class addition implements operation {
-  
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a + b;
+  }
 }
 class subtraction implements operation {
-
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a - b;
+  }
+  
 }
 class multiplication implements operation {
-
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a * b;
+  }
+  
 }
 class division implements operation {
+  constructor() {
+  }
+  exe(a: number, b: number) {
+    return a / b;
+  }
 
 }
 
@@ -20,7 +39,8 @@ class Calc {
   constructor(
     private result: number = 0,
     private lastResult: number = 0,
-    private opElement: HTMLElement = document.getElementById('output')!
+    private opElement: HTMLElement = document.getElementById('output')!,
+    private op: operation | null = null, 
   ) {}
 
   public updateOutput(): void {
@@ -43,10 +63,18 @@ class Calc {
   }
   public add(): void {
     this.setLastResult();
+    this.op = new addition();
+    this.updateOutput();
+  }
+  public sub(): void {
+    this.setLastResult();
+    this.op = new subtraction();
     this.updateOutput();
   }
   public equal(): void {
-    this.result += this.lastResult;
+    if(this.op) {
+      this.result = this.op.exe(this.result, this.lastResult);
+    }
     this.updateOutput();
   }
   public backspace(): void {
@@ -74,7 +102,7 @@ class Btn {
   }
 
   public static substract(): void {
-    // Logik hier
+    this.calc.sub();
   }
 
   public static multiply(): void {
