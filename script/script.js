@@ -1,25 +1,17 @@
 "use strict";
-// document.addEventListener('DOMContentLoaded', function() 
-// {
-//     const btns = document.querySelectorAll('#numpad .btn'); 
-//     btns.forEach(btn => {
-//       // Fügen Sie hier Event-Listener für jeden Button hinzu
-//       btn.addEventListener('click', function() 
-//       {
-//         // Logik für den Button-Klick hier
-//         console.log(btn.textContent); // Zeigt den Textinhalt des geklickten Buttons an
-//       });
-//     });
-//   });
-function main() {
-}
 class Calc {
-    constructor(result = 0, lastResult = 0) {
+    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output')) {
         this.result = result;
         this.lastResult = lastResult;
+        this.opElement = opElement;
     }
     updateOutput() {
-        document.getElementById('output').textContent = String(this.result);
+        this.opElement.textContent = String(this.result);
+    }
+    clear() {
+        this.result = 0;
+        this.lastResult = 0;
+        this.opElement.textContent = "Empty...";
     }
     setResult(numb) {
         this.result = this.result * 10 + numb;
@@ -35,6 +27,15 @@ class Calc {
     }
     equal() {
         this.result += this.lastResult;
+        this.updateOutput();
+    }
+    backspace() {
+        if (this.result < 10) {
+            this.result = 0;
+        }
+        else {
+            this.result = Math.floor(this.result / 10);
+        }
         this.updateOutput();
     }
 }
@@ -55,7 +56,7 @@ class Btn {
         // Logik hier
     }
     static backspace() {
-        // Logik hier
+        this.calc.backspace();
     }
     static modulo() {
         // Logik hier
@@ -71,6 +72,9 @@ class Btn {
     }
     static equal() {
         this.calc.equal();
+    }
+    static ce() {
+        this.calc.clear();
     }
 }
 Btn.calc = new Calc;

@@ -1,31 +1,35 @@
-// document.addEventListener('DOMContentLoaded', function() 
-// {
-//     const btns = document.querySelectorAll('#numpad .btn'); 
-  
-//     btns.forEach(btn => {
-//       // Fügen Sie hier Event-Listener für jeden Button hinzu
-//       btn.addEventListener('click', function() 
-//       {
-//         // Logik für den Button-Klick hier
-//         console.log(btn.textContent); // Zeigt den Textinhalt des geklickten Buttons an
-//       });
-//     });
-//   });
+interface operation {
 
-
-
-function main()
-{
-    
 }
+
+class addition implements operation {
+  
+}
+class subtraction implements operation {
+
+}
+class multiplication implements operation {
+
+}
+class division implements operation {
+
+}
+
 class Calc {
+  
   constructor(
     private result: number = 0,
-    private lastResult: number = 0
+    private lastResult: number = 0,
+    private opElement: HTMLElement = document.getElementById('output')!
   ) {}
 
   public updateOutput(): void {
-    document.getElementById('output')!.textContent = String(this.result)
+    this.opElement.textContent = String(this.result)
+  }
+  public clear(): void {
+    this.result = 0;
+    this.lastResult = 0;
+    this.opElement.textContent = "Empty..."
   }
   
 
@@ -44,6 +48,14 @@ class Calc {
   public equal(): void {
     this.result += this.lastResult;
     this.updateOutput();
+  }
+  public backspace(): void {
+    if(this.result < 10) {
+      this.result = 0;
+    } else {
+      this.result = Math.floor(this.result / 10);
+    }
+    this.updateOutput()
   }
 }
 
@@ -74,7 +86,7 @@ class Btn {
   }
 
   public static backspace(): void {
-    // Logik hier
+    this.calc.backspace()
   }
 
   public static modulo(): void {
@@ -95,6 +107,10 @@ class Btn {
 
   public static equal(): void {
     this.calc.equal();
+  }
+
+  public static ce(): void {
+    this.calc.clear();
   }
 }
 
