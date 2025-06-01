@@ -1,3 +1,4 @@
+
 interface operation {
   exe(a:number, b:number): number;
 }
