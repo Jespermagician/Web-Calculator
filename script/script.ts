@@ -1,4 +1,3 @@
-
 interface operation {
   exe(a:number, b:number): number;
 }
@@ -72,9 +71,23 @@ class Calc {
     this.op = new subtraction();
     this.updateOutput();
   }
+  public multi(): void {
+    this.setLastResult();
+    this.op = new multiplication();
+    this.updateOutput();
+  }
+  public div(): void {
+    this.setLastResult();
+    this.op = new division();
+    this.updateOutput();
+  }
   public equal(): void {
     if(this.op) {
-      this.result = this.op.exe(this.result, this.lastResult);
+      console.log("lastResult: " + this.lastResult);
+      console.log("result: " + this.result);
+      let temp: number = this.result;
+      this.result = this.op.exe(this.lastResult, this.result);
+      this.lastResult = temp;
     }
     this.updateOutput();
   }
@@ -107,11 +120,11 @@ class Btn {
   }
 
   public static multiply(): void {
-    // Logik hier
+    this.calc.multi();
   }
 
   public static divide(): void {
-    // Logik hier
+    this.calc.div();
   }
 
   public static backspace(): void {
@@ -143,3 +156,11 @@ class Btn {
   }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll<HTMLButtonElement>('#numpad .btn')
+    .forEach(btn =>
+      btn.addEventListener('click', () =>
+        console.log(btn.textContent)
+      )
+    );
+});

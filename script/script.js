@@ -60,9 +60,23 @@ class Calc {
         this.op = new subtraction();
         this.updateOutput();
     }
+    multi() {
+        this.setLastResult();
+        this.op = new multiplication();
+        this.updateOutput();
+    }
+    div() {
+        this.setLastResult();
+        this.op = new division();
+        this.updateOutput();
+    }
     equal() {
         if (this.op) {
-            this.result = this.op.exe(this.result, this.lastResult);
+            console.log("lastResult: " + this.lastResult);
+            console.log("result: " + this.result);
+            let temp = this.result;
+            this.result = this.op.exe(this.lastResult, this.result);
+            this.lastResult = temp;
         }
         this.updateOutput();
     }
@@ -87,10 +101,10 @@ class Btn {
         this.calc.sub();
     }
     static multiply() {
-        // Logik hier
+        this.calc.multi();
     }
     static divide() {
-        // Logik hier
+        this.calc.div();
     }
     static backspace() {
         this.calc.backspace();
@@ -115,3 +129,7 @@ class Btn {
     }
 }
 Btn.calc = new Calc;
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#numpad .btn')
+        .forEach(btn => btn.addEventListener('click', () => console.log(btn.textContent)));
+});
