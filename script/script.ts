@@ -1,10 +1,12 @@
 interface operation {
   exe(a:number, b:number): number;
+  symbol: string | null;
 }
 
 class addition implements operation {
   constructor() {
   }
+  symbol: string = "+";
   exe(a: number, b: number) {
     return a + b;
   }
@@ -12,6 +14,7 @@ class addition implements operation {
 class subtraction implements operation {
   constructor() {
   }
+  symbol = "-";
   exe(a: number, b: number) {
     return a - b;
   }
@@ -20,6 +23,7 @@ class subtraction implements operation {
 class multiplication implements operation {
   constructor() {
   }
+  symbol = "*";
   exe(a: number, b: number) {
     return a * b;
   }
@@ -28,10 +32,19 @@ class multiplication implements operation {
 class division implements operation {
   constructor() {
   }
+  symbol = "/";
   exe(a: number, b: number) {
     return a / b;
   }
+}
 
+class modulo implements operation {
+  constructor() {
+  }
+  symbol = "%";
+  exe(a: number, b: number) {
+    return a % b;
+  }
 }
 
 class Calc {
@@ -40,22 +53,47 @@ class Calc {
     private result: number = 0,
     private lastResult: number = 0,
     private opElement: HTMLElement = document.getElementById('output')!,
+    private symbolElement: HTMLElement = document.getElementById('operation')!,
     private op: operation | null = null, 
+    private lastNumEl: HTMLElement = document.getElementById('lastNumber')!,
+    private currNumEl: HTMLElement = document.getElementById('currentNumber')!,
   ) {}
 
-  public updateOutput(): void {
+  public updateOutput(clearSym: boolean): void {
+    console.log("test")
     this.opElement.textContent = String(this.result)
+    console.log("test")
+    if(this.op && this.op.symbol) {
+      if(!clearSym)
+        this.symbolElement.textContent = this.op.symbol;
+      else 
+        this.symbolElement.textContent = "";
+    }
+    else
+      this.symbolElement.textContent = "";
+
+    this.debug();
   }
+  public debug(): void {
+    this.lastNumEl.textContent = String(this.lastResult);
+    this.currNumEl.textContent = String(this.result);
+  }
+
   public clear(): void {
     this.result = 0;
     this.lastResult = 0;
     this.opElement.textContent = "Empty..."
+    this.symbolElement.textContent = "";
+  }
+  public setZero(): void {
+    this.result = 0;
+    this.updateOutput(false);
   }
   
 
   public setResult(numb: number): void {
     this.result = this.result * 10 + numb;
-    this.updateOutput();
+    this.updateOutput(false);
   }
   private setLastResult(): void {
     this.lastResult = this.result;
@@ -64,22 +102,28 @@ class Calc {
   public add(): void {
     this.setLastResult();
     this.op = new addition();
-    this.updateOutput();
+    this.updateOutput(false);
   }
   public sub(): void {
     this.setLastResult();
     this.op = new subtraction();
-    this.updateOutput();
+    this.updateOutput(false);
   }
   public multi(): void {
     this.setLastResult();
     this.op = new multiplication();
-    this.updateOutput();
+    this.updateOutput(false);
   }
   public div(): void {
     this.setLastResult();
     this.op = new division();
-    this.updateOutput();
+    this.updateOutput(false);
+    
+  }
+  public modulo(): void {
+    this.setLastResult();
+    this.op = new modulo();
+    this.updateOutput(false);
   }
   public equal(): void {
     if(this.op) {
@@ -89,7 +133,7 @@ class Calc {
       this.result = this.op.exe(this.lastResult, this.result);
       this.lastResult = temp;
     }
-    this.updateOutput();
+    this.updateOutput(true);
   }
   public backspace(): void {
     if(this.result < 10) {
@@ -97,8 +141,9 @@ class Calc {
     } else {
       this.result = Math.floor(this.result / 10);
     }
-    this.updateOutput()
+    this.updateOutput(true)
   }
+  
 }
 
 
@@ -132,19 +177,19 @@ class Btn {
   }
 
   public static modulo(): void {
-    // Logik hier
+    this.calc.modulo();
   }
 
   public static power2(): void {
-    // Logik hier
+    // implement later
   }
 
   public static root2(): void {
-    // Logik hier
+    // implement later
   }
 
   public static flipNumber(): void {
-    // Logik hier
+    // implement later
   }
 
   public static equal(): void {
@@ -153,6 +198,10 @@ class Btn {
 
   public static ce(): void {
     this.calc.clear();
+  }
+
+  public static c(): void {
+    this.calc.setZero();
   }
 }
 

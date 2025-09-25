@@ -23,20 +23,39 @@ body{
     border-radius: inherit;
     margin: 10px;
 }
-#output{
-    color: rgb(71, 68, 68);
-    margin-left: 10px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-#screen
-{
+#screen {
     border: inherit;
     background-color: lightgray;
     border-radius: inherit;
     margin: 10px;
     height: 60px;
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
+#operation {
+    color: rgb(71, 68, 68);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 75%;   
+    margin: 0;
+    font-weight: bolder;
+    margin-bottom: -5px;
+    line-height: 1;
+}
+
+#output {
+    color: rgb(71, 68, 68);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 
+                 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 120%;   
+    margin: 2px 0 0 0;
+    flex-grow: 1;      
+    display: flex;
+    align-items: flex-end; 
+}
+
 
 #numpad
 {
@@ -78,4 +97,19 @@ body{
      -moz-box-shadow: inset 0px 0px 1.5rem black;
           box-shadow: inset 0px 0px 1.5rem black;
    outline: none;
+}
+
+
+#debug {
+    border: black solid 2px;
+    /* margin: 10px; */
+    padding: 6px;   
+    display: inline-block;
+    flex: auto;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
 }
