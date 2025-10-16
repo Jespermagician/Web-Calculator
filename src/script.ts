@@ -17,8 +17,7 @@ class subtraction implements operation {
   symbol = "-";
   exe(a: number, b: number) {
     return a - b;
-  }
-  
+  } 
 }
 class multiplication implements operation {
   constructor() {
@@ -37,7 +36,6 @@ class division implements operation {
     return a / b;
   }
 }
-
 class modulo implements operation {
   constructor() {
   }
@@ -46,9 +44,32 @@ class modulo implements operation {
     return a % b;
   }
 }
+class wolfram implements operation {
+  constructor() {
+  }
+  symbol = "1/x";
+  exe(a: number) {
+    return 1 / a;
+  }
+}
+class root2 implements operation {
+  constructor() {
+  }
+  symbol = "2Wx";
+  exe(a: number) {
+    return a * a;
+  }
+}
+class power2 implements operation {
+  constructor() {
+  }
+  symbol = "x^2";
+  exe(a: number) {
+    return a * a;
+  }
+}
 
 class Calc {
-  
   constructor(
     private result: number = 0,
     private lastResult: number = 0,
@@ -143,6 +164,14 @@ class Calc {
     }
     this.updateOutput(true)
   }
+  public root2(): void {
+    this.result /= this.result;
+    this.updateOutput(true)
+  }
+  public power2(): void {
+    this.result *= this.result;
+    this.updateOutput(true)
+  }
   
 }
 
@@ -181,13 +210,14 @@ class Btn {
   }
 
   public static power2(): void {
-    // implement later
+    this.calc.power2();
   }
 
   public static root2(): void {
-    // implement later
+    this.calc.root2();
   }
 
+  // + / - ig 
   public static flipNumber(): void {
     // implement later
   }

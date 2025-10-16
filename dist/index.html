@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="./stylesheet.css">
 </head>
 <body>
     <div id="calculator">
@@ -16,8 +16,8 @@
         </div>
         <div id="numpad">
             <div class="column">
-                <div class="btn" onclick="Btn.modulo()">%</div>
-                <div class="btn" >1/x</div>
+                <div class="btn" onclick="Btn.modulo()"><img src="icons/percent.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.wolfram()">1/x</div>
                 <div class="btn" onclick="Btn.number(7)">7</div>
                 <div class="btn" onclick="Btn.number(4)">4</div>
                 <div class="btn" onclick="Btn.number(1)">1</div>
@@ -25,7 +25,7 @@
             </div>
             <div class="column">
                 <div class="btn" onclick="Btn.ce()">CE</div>
-                <div class="btn">x^2</div>
+                <div class="btn" onclick="Btn.power2()">x²</div>
                 <div class="btn" onclick="Btn.number(8)">8</div>
                 <div class="btn" onclick="Btn.number(5)">5</div>
                 <div class="btn" onclick="Btn.number(2)">2</div>
@@ -33,19 +33,19 @@
             </div>
             <div class="column">
                 <div class="btn" onclick="Btn.c()">C</div>
-                <div class="btn">2Wx</div>
+                <div class="btn" onclick="Btn.root2()""><img src="icons/radical.svg" alt="÷">2</div>
                 <div class="btn" onclick="Btn.number(9)">9</div>
                 <div class="btn" onclick="Btn.number(6)">6</div>
                 <div class="btn" onclick="Btn.number(3)">3</div>
                 <div class="btn">,</div>
             </div>
             <div class="column">
-                <div class="btn" onclick="Btn.backspace()">⌫</div>
-                <div class="btn" onclick="Btn.divide()">//</div>
-                <div class="btn" onclick="Btn.multiply()">X</div>
-                <div class="btn" onclick="Btn.substract()">-</div>
-                <div class="btn" onclick="Btn.add()">+</div>
-                <div class="btn" onclick="Btn.equal()">=</div>
+                <div class="btn" onclick="Btn.backspace()"><img src="icons/delete.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.divide()"><img src="icons/divide.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.multiply()"><img src="icons/x.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.substract()"><img src="icons/minus.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.add()"><img src="icons/plus.svg" alt="÷"></div>
+                <div class="btn" onclick="Btn.equal()"><img src="icons/equal.svg" alt="÷"></div>
             </div>
         </div>
     </div>
@@ -58,6 +58,7 @@
             Current number: <span id="currentNumber"> - </span>
         </div>
     </div>
-    <script src="../script/script.js"></script> 
+    <script src="./script/script.js"></script> 
+    
 </body>
 </html>
