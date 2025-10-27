@@ -39,6 +39,30 @@ class modulo {
         return a % b;
     }
 }
+class wolfram {
+    constructor() {
+        this.symbol = "1/x";
+    }
+    exe(a) {
+        return 1 / a;
+    }
+}
+class root2 {
+    constructor() {
+        this.symbol = "2Wx";
+    }
+    exe(a) {
+        return a * a;
+    }
+}
+class power2 {
+    constructor() {
+        this.symbol = "x^2";
+    }
+    exe(a) {
+        return a * a;
+    }
+}
 class Calc {
     constructor(result = 0, lastResult = 0, opElement = document.getElementById('output'), symbolElement = document.getElementById('operation'), op = null, lastNumEl = document.getElementById('lastNumber'), currNumEl = document.getElementById('currentNumber')) {
         this.result = result;
@@ -166,6 +190,7 @@ class Btn {
     static root2() {
         this.calc.root2();
     }
+    // + / - ig 
     static flipNumber() {
         // implement later
     }
@@ -177,9 +202,6 @@ class Btn {
     }
     static c() {
         this.calc.setZero();
-    }
-    static wolfram() {
-        this.calc.Wofram();
     }
 }
 Btn.calc = new Calc;
