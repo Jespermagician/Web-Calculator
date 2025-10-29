@@ -100,6 +100,12 @@ body{
 }
 
 
+.stong-text {
+    font-weight: bolder;
+    font-size: x-large;
+}
+
+
 #debug {
     border: black solid 2px;
     /* margin: 10px; */

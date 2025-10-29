@@ -17,7 +17,7 @@ class subtraction {
 }
 class multiplication {
     constructor() {
-        this.symbol = "*";
+        this.symbol = "X";
     }
     exe(a, b) {
         return a * b;
@@ -41,7 +41,7 @@ class modulo {
 }
 class wolfram {
     constructor() {
-        this.symbol = "1/x";
+        this.symbol = "";
     }
     exe(a) {
         return 1 / a;
@@ -49,22 +49,31 @@ class wolfram {
 }
 class root2 {
     constructor() {
-        this.symbol = "2Wx";
+        this.symbol = "";
     }
     exe(a) {
-        return a * a;
+        // return a / a;
+        return Math.pow(a, 0.5);
     }
 }
 class power2 {
     constructor() {
-        this.symbol = "x^2";
+        this.symbol = "";
     }
     exe(a) {
         return a * a;
     }
 }
+class flipNumber {
+    constructor() {
+        this.symbol = "";
+    }
+    exe(a) {
+        return a * -1;
+    }
+}
 class Calc {
-    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output'), symbolElement = document.getElementById('operation'), op = null, lastNumEl = document.getElementById('lastNumber'), currNumEl = document.getElementById('currentNumber')) {
+    constructor(result = 0, lastResult = 0, opElement = document.getElementById('output'), symbolElement = document.getElementById('operation'), op = null, lastNumEl = document.getElementById('lastNumber'), currNumEl = document.getElementById('currentNumber'), decimalState = 0) {
         this.result = result;
         this.lastResult = lastResult;
         this.opElement = opElement;
@@ -72,6 +81,14 @@ class Calc {
         this.op = op;
         this.lastNumEl = lastNumEl;
         this.currNumEl = currNumEl;
+        this.decimalState = decimalState;
+    }
+    operate(op) {
+        if (this.decimalState !== 0) {
+            this.decimalState = 0;
+        }
+        console.log("type " + typeof op);
+        return new op;
     }
     updateOutput(clearSym) {
         console.log("test");
@@ -94,16 +111,28 @@ class Calc {
     clear() {
         this.result = 0;
         this.lastResult = 0;
+        this.decimalState = 0;
         this.opElement.textContent = "Empty...";
         this.symbolElement.textContent = "";
     }
     setZero() {
         this.result = 0;
         this.updateOutput(false);
+        this.decimalState = 0;
     }
     setResult(numb) {
-        this.result = this.result * 10 + numb;
-        this.updateOutput(false);
+        if (this.decimalState > 0) {
+            if (this.decimalState >= 10)
+                return;
+            this.result = this.result + (numb / power(10, this.decimalState));
+            this.decimalState += 1;
+            console.log("this.decimalState " + this.decimalState);
+            this.updateOutput(false);
+        }
+        else {
+            this.result = this.result * 10 + numb;
+            this.updateOutput(false);
+        }
     }
     setLastResult() {
         this.lastResult = this.result;
@@ -111,31 +140,32 @@ class Calc {
     }
     add() {
         this.setLastResult();
-        this.op = new addition();
+        this.op = this.operate(addition);
         this.updateOutput(false);
     }
     sub() {
         this.setLastResult();
-        this.op = new subtraction();
+        this.op = this.operate(subtraction);
         this.updateOutput(false);
     }
     multi() {
         this.setLastResult();
-        this.op = new multiplication();
+        this.op = this.operate(multiplication);
         this.updateOutput(false);
     }
     div() {
         this.setLastResult();
-        this.op = new division();
+        this.op = this.operate(division);
         this.updateOutput(false);
     }
     modulo() {
         this.setLastResult();
-        this.op = new modulo();
+        this.op = this.operate(modulo);
         this.updateOutput(false);
     }
     equal() {
         if (this.op) {
+            this.decimalState = 0;
             console.log("lastResult: " + this.lastResult);
             console.log("result: " + this.result);
             let temp = this.result;
@@ -154,12 +184,30 @@ class Calc {
         this.updateOutput(true);
     }
     root2() {
-        this.result /= this.result;
+        this.op = this.operate(root2);
+        this.result = this.op.exe(this.result, 0);
         this.updateOutput(true);
     }
     power2() {
-        this.result *= this.result;
+        this.op = this.operate(power2);
+        this.result = this.op.exe(this.result, 0);
         this.updateOutput(true);
+    }
+    wolfram() {
+        this.op = this.operate(wolfram);
+        this.result = this.op.exe(this.result, 0);
+        this.updateOutput(true);
+    }
+    flipNumber() {
+        this.op = this.operate(flipNumber);
+        this.result = this.op.exe(this.result, 0);
+        this.updateOutput(true);
+    }
+    decimal() {
+        if (this.decimalState <= 0) {
+            this.decimalState = 1;
+            this.opElement.textContent = String(this.result) + ".";
+        }
     }
 }
 class Btn {
@@ -192,7 +240,7 @@ class Btn {
     }
     // + / - ig 
     static flipNumber() {
-        // implement later
+        this.calc.flipNumber();
     }
     static equal() {
         this.calc.equal();
@@ -203,9 +251,25 @@ class Btn {
     static c() {
         this.calc.setZero();
     }
+    static wolfram() {
+        this.calc.wolfram();
+    }
+    static decimal() {
+        this.calc.decimal();
+    }
 }
 Btn.calc = new Calc;
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('#numpad .btn')
         .forEach(btn => btn.addEventListener('click', () => console.log(btn.textContent)));
 });
+function power(val, pow) {
+    if (pow === 0)
+        return 1;
+    let sol = val;
+    for (let i = 0; i < pow - 1; i++) {
+        sol *= val;
+    }
+    console.log({ sol });
+    return sol;
+}
