@@ -112,7 +112,7 @@ class Calc {
     if(this.decimalState > 0) {
       if(this.decimalState >=  10)
         return
-      this.result = this.result + (numb / power(10, this.decimalState));
+      this.result = this.result + (numb / (10 ** this.decimalState));
       this.decimalState += 1;
       this.updateOutput(false);
     } else {
@@ -274,14 +274,3 @@ document.addEventListener('DOMContentLoaded', () => {
       )
     );
 });
-
-
-function power(val: number, pow: number): number {
-  if (pow === 0) 
-    return 1;
-  let sol = val;
-  for (let i = 0; i < pow - 1; i++) {
-    sol *= val;
-  }
-  return sol;
-}
