@@ -1,5 +1,5 @@
 interface Operation {
-  exe(a:number, b:number): number;
+  exe(a: number, b?: number): number;
   symbol: string | null;
 }
 
@@ -45,35 +45,26 @@ class modulo implements Operation {
   }
 }
 class wolfram implements Operation {
-  constructor() {
-  }
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
     return 1 / a;
   }
 }
 class root2 implements Operation {
-  constructor() {
-  }
   symbol = "";
-  exe(a: number) {
-    // return a / a;
+  exe(a: number): number {
     return Math.pow(a, 0.5);
   }
 }
 class power2 implements Operation {
-  constructor() {
-  }
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
     return a * a;
   }
 }
 class flipNumber implements Operation {
-  constructor() {
-  }
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
     return a * -1;
   }
 }
