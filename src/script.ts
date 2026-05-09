@@ -81,7 +81,7 @@ class Calc {
   }
 
   public updateOutput(clearSym: boolean): void {
-    this.opElement.textContent = String(this.result)
+    this.opElement.textContent = String(this.result);
     if(this.op && this.op.symbol) {
       if(!clearSym)
         this.symbolElement.textContent = this.op.symbol;
@@ -103,7 +103,7 @@ class Calc {
     this.lastResult = 0;
     this.decimalState = 0;
     this.op = null;
-    this.opElement.textContent = "Empty..."
+    this.opElement.textContent = "Empty...";
     this.symbolElement.textContent = "";
   }
   public setZero(): void {
@@ -116,7 +116,7 @@ class Calc {
   public setResult(numb: number): void {
     if(this.decimalState > 0) {
       if(this.decimalState >=  10)
-        return
+        return;
       this.result = this.result + (numb / (10 ** this.decimalState));
       this.decimalState += 1;
       this.updateOutput(false);
@@ -131,28 +131,28 @@ class Calc {
   }
   public add(): void {
     this.setLastResult();
-    this.op = this.operate(addition)
+    this.op = this.operate(addition);
     this.updateOutput(false);
   }
   public sub(): void {
     this.setLastResult();
-    this.op = this.operate(subtraction)
+    this.op = this.operate(subtraction);
     this.updateOutput(false);
   }
   public multi(): void {
     this.setLastResult();
-    this.op = this.operate(multiplication)
+    this.op = this.operate(multiplication);
     this.updateOutput(false);
   }
   public div(): void {
     this.setLastResult();
-    this.op = this.operate(division)
+    this.op = this.operate(division);
     this.updateOutput(false);
     
   }
   public modulo(): void {
     this.setLastResult();
-    this.op = this.operate(modulo)
+    this.op = this.operate(modulo);
     this.updateOutput(false);
   }
   public equal(): void {
@@ -170,7 +170,7 @@ class Calc {
     } else {
       this.result = Math.trunc(this.result / 10);
     }
-    this.updateOutput(true)
+    this.updateOutput(true);
   }
   public root2(): void {
     this.result = new root2().exe(this.result);
@@ -194,7 +194,7 @@ class Calc {
   public decimal(): void {
     if(this.decimalState === 0) {
       this.decimalState = 1;
-      this.opElement.textContent = String(this.result) + "."
+      this.opElement.textContent = String(this.result) + ".";
     }
   }
 }
@@ -226,7 +226,7 @@ class Btn {
   }
 
   public static backspace(): void {
-    this.calc.backspace()
+    this.calc.backspace();
   }
 
   public static modulo(): void {
