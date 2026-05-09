@@ -191,7 +191,7 @@ class Calc {
   }
 
   public decimal(): void {
-    if(this.decimalState <= 0) {
+    if(this.decimalState === 0) {
       this.decimalState = 1;
       this.opElement.textContent = String(this.result) + "."
     }
