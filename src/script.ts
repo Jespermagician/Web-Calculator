@@ -171,26 +171,22 @@ class Calc {
     this.updateOutput(true)
   }
   public root2(): void {
-    this.op = this.operate(root2)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new root2().exe(this.result);
+    this.updateOutput(true);
   }
   public power2(): void {
-    this.op = this.operate(power2)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new power2().exe(this.result);
+    this.updateOutput(true);
   }
 
   public wolfram(): void {
-    this.op = this.operate(wolfram)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new wolfram().exe(this.result);
+    this.updateOutput(true);
   }
 
   public flipNumber(): void {
-    this.op = this.operate(flipNumber)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new flipNumber().exe(this.result);
+    this.updateOutput(true);
   }
 
   public decimal(): void {
