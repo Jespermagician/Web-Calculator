@@ -4,9 +4,11 @@ body{
     border-radius: 14px;
 }
 
-#calculator
-{
+#calculator {
     background-color: grey;
+    border: 5px black solid;
+    border-radius: inherit;
+    margin: 10px;
 }
 
 #numpad
@@ -17,12 +19,6 @@ body{
     user-select: none; /* Standard syntax */
 }
 
-#calculator
-{
-    border: 5px black solid;
-    border-radius: inherit;
-    margin: 10px;
-}
 #screen {
     border: inherit;
     background-color: lightgray;
