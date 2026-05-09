@@ -163,7 +163,7 @@ class Calc {
     if(this.result < 10) {
       this.result = 0;
     } else {
-      this.result = Math.floor(this.result / 10);
+      this.result = Math.trunc(this.result / 10);
     }
     this.updateOutput(true)
   }
