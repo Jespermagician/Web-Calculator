@@ -24,19 +24,22 @@ class multiplication implements Operation {
 }
 class division implements Operation {
   symbol = "/";
-  exe(a: number, b: number) {
+  exe(a: number, b: number): number {
+    if (b === 0) throw new Error("Division by zero");
     return a / b;
   }
 }
 class modulo implements Operation {
   symbol = "%";
-  exe(a: number, b: number) {
+  exe(a: number, b: number): number {
+    if (b === 0) throw new Error("Modulo by zero");
     return a % b;
   }
 }
 class wolfram implements Operation {
   symbol = "";
   exe(a: number): number {
+    if (a === 0) throw new Error("Division by zero");
     return 1 / a;
   }
 }
