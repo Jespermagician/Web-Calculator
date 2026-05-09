@@ -1,7 +1,6 @@
 body{
     justify-content: center;
     display: flex;
-    border-radius: 14px;
 }
 
 #calculator {
