@@ -4,24 +4,18 @@ interface Operation {
 }
 
 class addition implements Operation {
-  constructor() {
-  }
   symbol: string = "+";
   exe(a: number, b: number) {
     return a + b;
   }
 }
 class subtraction implements Operation {
-  constructor() {
-  }
   symbol = "-";
   exe(a: number, b: number) {
     return a - b;
   } 
 }
 class multiplication implements Operation {
-  constructor() {
-  }
   symbol = "X";
   exe(a: number, b: number) {
     return a * b;
@@ -29,16 +23,12 @@ class multiplication implements Operation {
   
 }
 class division implements Operation {
-  constructor() {
-  }
   symbol = "/";
   exe(a: number, b: number) {
     return a / b;
   }
 }
 class modulo implements Operation {
-  constructor() {
-  }
   symbol = "%";
   exe(a: number, b: number) {
     return a % b;
