@@ -102,6 +102,7 @@ class Calc {
     this.result = 0;
     this.lastResult = 0;
     this.decimalState = 0;
+    this.op = null;
     this.opElement.textContent = "Empty..."
     this.symbolElement.textContent = "";
   }
