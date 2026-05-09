@@ -74,14 +74,11 @@ class Calc {
     if(this.decimalState !== 0) {
       this.decimalState = 0;
     }
-    console.log("type " + typeof op)
     return new op;
   }
 
   public updateOutput(clearSym: boolean): void {
-    console.log("test")
     this.opElement.textContent = String(this.result)
-    console.log("test")
     if(this.op && this.op.symbol) {
       if(!clearSym)
         this.symbolElement.textContent = this.op.symbol;
@@ -117,7 +114,6 @@ class Calc {
         return
       this.result = this.result + (numb / power(10, this.decimalState));
       this.decimalState += 1;
-      console.log("this.decimalState "  + this.decimalState)
       this.updateOutput(false);
     } else {
       this.result = this.result * 10 + numb;
@@ -157,8 +153,6 @@ class Calc {
   public equal(): void {
     if(this.op) {
       this.decimalState = 0;
-      console.log("lastResult: " + this.lastResult);
-      console.log("result: " + this.result);
       let temp: number = this.result;
       this.result = this.op.exe(this.lastResult, this.result);
       this.lastResult = temp;
@@ -289,6 +283,5 @@ function power(val: number, pow: number): number {
   for (let i = 0; i < pow - 1; i++) {
     sol *= val;
   }
-  console.log({sol})
   return sol;
 }
