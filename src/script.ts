@@ -107,6 +107,7 @@ class Calc {
   }
   public setZero(): void {
     this.result = 0;
+    this.lastResult = 0;
     this.updateOutput(false);
     this.decimalState = 0;
   }
