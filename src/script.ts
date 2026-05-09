@@ -1,79 +1,63 @@
-interface operation {
-  exe(a:number, b:number): number;
+interface Operation {
+  exe(a: number, b?: number): number;
   symbol: string | null;
 }
 
-class addition implements operation {
-  constructor() {
-  }
+class addition implements Operation {
   symbol: string = "+";
   exe(a: number, b: number) {
     return a + b;
   }
 }
-class subtraction implements operation {
-  constructor() {
-  }
+class subtraction implements Operation {
   symbol = "-";
   exe(a: number, b: number) {
     return a - b;
   } 
 }
-class multiplication implements operation {
-  constructor() {
-  }
+class multiplication implements Operation {
   symbol = "X";
   exe(a: number, b: number) {
     return a * b;
   }
   
 }
-class division implements operation {
-  constructor() {
-  }
+class division implements Operation {
   symbol = "/";
-  exe(a: number, b: number) {
+  exe(a: number, b: number): number {
+    if (b === 0) throw new Error("Division by zero");
     return a / b;
   }
 }
-class modulo implements operation {
-  constructor() {
-  }
+class modulo implements Operation {
   symbol = "%";
-  exe(a: number, b: number) {
+  exe(a: number, b: number): number {
+    if (b === 0) throw new Error("Modulo by zero");
     return a % b;
   }
 }
-class wolfram implements operation {
-  constructor() {
-  }
+class wolfram implements Operation {
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
+    if (a === 0) throw new Error("Division by zero");
     return 1 / a;
   }
 }
-class root2 implements operation {
-  constructor() {
-  }
+class root2 implements Operation {
   symbol = "";
-  exe(a: number) {
-    // return a / a;
+  exe(a: number): number {
     return Math.pow(a, 0.5);
   }
 }
-class power2 implements operation {
-  constructor() {
-  }
+class power2 implements Operation {
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
     return a * a;
   }
 }
-class flipNumber implements operation {
-  constructor() {
-  }
+class flipNumber implements Operation {
   symbol = "";
-  exe(a: number) {
+  exe(a: number): number {
     return a * -1;
   }
 }
@@ -84,23 +68,20 @@ class Calc {
     private lastResult: number = 0,
     private opElement: HTMLElement = document.getElementById('output')!,
     private symbolElement: HTMLElement = document.getElementById('operation')!,
-    private op: operation | null = null, 
+    private op: Operation | null = null, 
     private lastNumEl: HTMLElement = document.getElementById('lastNumber')!,
     private currNumEl: HTMLElement = document.getElementById('currentNumber')!,
     private decimalState: number = 0
   ) {}
-  private operate(op: any): operation {
+  private operate(op: new () => Operation): Operation {
     if(this.decimalState !== 0) {
       this.decimalState = 0;
     }
-    console.log("type " + typeof op)
     return new op;
   }
 
   public updateOutput(clearSym: boolean): void {
-    console.log("test")
-    this.opElement.textContent = String(this.result)
-    console.log("test")
+    this.opElement.textContent = String(this.result);
     if(this.op && this.op.symbol) {
       if(!clearSym)
         this.symbolElement.textContent = this.op.symbol;
@@ -121,11 +102,13 @@ class Calc {
     this.result = 0;
     this.lastResult = 0;
     this.decimalState = 0;
-    this.opElement.textContent = "Empty..."
+    this.op = null;
+    this.opElement.textContent = "Empty...";
     this.symbolElement.textContent = "";
   }
   public setZero(): void {
     this.result = 0;
+    this.lastResult = 0;
     this.updateOutput(false);
     this.decimalState = 0;
   }
@@ -133,10 +116,9 @@ class Calc {
   public setResult(numb: number): void {
     if(this.decimalState > 0) {
       if(this.decimalState >=  10)
-        return
-      this.result = this.result + (numb / power(10, this.decimalState));
+        return;
+      this.result = this.result + (numb / (10 ** this.decimalState));
       this.decimalState += 1;
-      console.log("this.decimalState "  + this.decimalState)
       this.updateOutput(false);
     } else {
       this.result = this.result * 10 + numb;
@@ -149,35 +131,33 @@ class Calc {
   }
   public add(): void {
     this.setLastResult();
-    this.op = this.operate(addition)
+    this.op = this.operate(addition);
     this.updateOutput(false);
   }
   public sub(): void {
     this.setLastResult();
-    this.op = this.operate(subtraction)
+    this.op = this.operate(subtraction);
     this.updateOutput(false);
   }
   public multi(): void {
     this.setLastResult();
-    this.op = this.operate(multiplication)
+    this.op = this.operate(multiplication);
     this.updateOutput(false);
   }
   public div(): void {
     this.setLastResult();
-    this.op = this.operate(division)
+    this.op = this.operate(division);
     this.updateOutput(false);
     
   }
   public modulo(): void {
     this.setLastResult();
-    this.op = this.operate(modulo)
+    this.op = this.operate(modulo);
     this.updateOutput(false);
   }
   public equal(): void {
     if(this.op) {
       this.decimalState = 0;
-      console.log("lastResult: " + this.lastResult);
-      console.log("result: " + this.result);
       let temp: number = this.result;
       this.result = this.op.exe(this.lastResult, this.result);
       this.lastResult = temp;
@@ -188,37 +168,33 @@ class Calc {
     if(this.result < 10) {
       this.result = 0;
     } else {
-      this.result = Math.floor(this.result / 10);
+      this.result = Math.trunc(this.result / 10);
     }
-    this.updateOutput(true)
+    this.updateOutput(true);
   }
   public root2(): void {
-    this.op = this.operate(root2)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new root2().exe(this.result);
+    this.updateOutput(true);
   }
   public power2(): void {
-    this.op = this.operate(power2)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new power2().exe(this.result);
+    this.updateOutput(true);
   }
 
   public wolfram(): void {
-    this.op = this.operate(wolfram)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new wolfram().exe(this.result);
+    this.updateOutput(true);
   }
 
   public flipNumber(): void {
-    this.op = this.operate(flipNumber)
-    this.result = this.op.exe(this.result, 0)
-    this.updateOutput(true)
+    this.result = new flipNumber().exe(this.result);
+    this.updateOutput(true);
   }
 
   public decimal(): void {
-    if(this.decimalState <= 0) {
+    if(this.decimalState === 0) {
       this.decimalState = 1;
-      this.opElement.textContent = String(this.result) + "."
+      this.opElement.textContent = String(this.result) + ".";
     }
   }
 }
@@ -250,7 +226,7 @@ class Btn {
   }
 
   public static backspace(): void {
-    this.calc.backspace()
+    this.calc.backspace();
   }
 
   public static modulo(): void {
@@ -289,25 +265,4 @@ class Btn {
   public static decimal(): void {
     this.calc.decimal();
   }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll<HTMLButtonElement>('#numpad .btn')
-    .forEach(btn =>
-      btn.addEventListener('click', () =>
-        console.log(btn.textContent)
-      )
-    );
-});
-
-
-function power(val: number, pow: number): number {
-  if (pow === 0) 
-    return 1;
-  let sol = val;
-  for (let i = 0; i < pow - 1; i++) {
-    sol *= val;
-  }
-  console.log({sol})
-  return sol;
 }

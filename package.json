@@ -2,7 +2,7 @@
   "name": "web-calculator",
   "version": "1.0.0",
   "description": "A small Test Projekt. The goal is to make it more complex step for step.",
-  "main": "myscripts.js",
+  "main": "page/dist/script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
