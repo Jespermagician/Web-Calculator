@@ -1,9 +1,9 @@
-interface operation {
+interface Operation {
   exe(a:number, b:number): number;
   symbol: string | null;
 }
 
-class addition implements operation {
+class addition implements Operation {
   constructor() {
   }
   symbol: string = "+";
@@ -11,7 +11,7 @@ class addition implements operation {
     return a + b;
   }
 }
-class subtraction implements operation {
+class subtraction implements Operation {
   constructor() {
   }
   symbol = "-";
@@ -19,7 +19,7 @@ class subtraction implements operation {
     return a - b;
   } 
 }
-class multiplication implements operation {
+class multiplication implements Operation {
   constructor() {
   }
   symbol = "X";
@@ -28,7 +28,7 @@ class multiplication implements operation {
   }
   
 }
-class division implements operation {
+class division implements Operation {
   constructor() {
   }
   symbol = "/";
@@ -36,7 +36,7 @@ class division implements operation {
     return a / b;
   }
 }
-class modulo implements operation {
+class modulo implements Operation {
   constructor() {
   }
   symbol = "%";
@@ -44,7 +44,7 @@ class modulo implements operation {
     return a % b;
   }
 }
-class wolfram implements operation {
+class wolfram implements Operation {
   constructor() {
   }
   symbol = "";
@@ -52,7 +52,7 @@ class wolfram implements operation {
     return 1 / a;
   }
 }
-class root2 implements operation {
+class root2 implements Operation {
   constructor() {
   }
   symbol = "";
@@ -61,7 +61,7 @@ class root2 implements operation {
     return Math.pow(a, 0.5);
   }
 }
-class power2 implements operation {
+class power2 implements Operation {
   constructor() {
   }
   symbol = "";
@@ -69,7 +69,7 @@ class power2 implements operation {
     return a * a;
   }
 }
-class flipNumber implements operation {
+class flipNumber implements Operation {
   constructor() {
   }
   symbol = "";
@@ -84,12 +84,12 @@ class Calc {
     private lastResult: number = 0,
     private opElement: HTMLElement = document.getElementById('output')!,
     private symbolElement: HTMLElement = document.getElementById('operation')!,
-    private op: operation | null = null, 
+    private op: Operation | null = null, 
     private lastNumEl: HTMLElement = document.getElementById('lastNumber')!,
     private currNumEl: HTMLElement = document.getElementById('currentNumber')!,
     private decimalState: number = 0
   ) {}
-  private operate(op: any): operation {
+  private operate(op: any): Operation {
     if(this.decimalState !== 0) {
       this.decimalState = 0;
     }
