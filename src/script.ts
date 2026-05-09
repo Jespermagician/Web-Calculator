@@ -266,12 +266,3 @@ class Btn {
     this.calc.decimal();
   }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll<HTMLButtonElement>('#numpad .btn')
-    .forEach(btn =>
-      btn.addEventListener('click', () =>
-        console.log(btn.textContent)
-      )
-    );
-});
