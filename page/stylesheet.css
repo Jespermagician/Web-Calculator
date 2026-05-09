@@ -16,6 +16,13 @@ body{
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     user-select: none; /* Standard syntax */
+    border: inherit;
+    border-radius: inherit;
+    margin: 10px;
+    padding: 8px;
+
+    display: flex;
+    justify-content: center;
 }
 
 #screen {
@@ -51,22 +58,6 @@ body{
     align-items: flex-end; 
 }
 
-
-#numpad
-{
-    border: inherit;
-    border-radius: inherit;
-    margin: 10px;
-    padding: 8px;
-
-    display: flex;
-    justify-content: center;
-}
-
-/* .column
-{   
-    
-} */
 
 .btn
 {
