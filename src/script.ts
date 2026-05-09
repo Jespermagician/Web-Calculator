@@ -80,7 +80,7 @@ class Calc {
     private currNumEl: HTMLElement = document.getElementById('currentNumber')!,
     private decimalState: number = 0
   ) {}
-  private operate(op: any): Operation {
+  private operate(op: new () => Operation): Operation {
     if(this.decimalState !== 0) {
       this.decimalState = 0;
     }
